@@ -1,20 +1,10 @@
 import mongoose from 'mongoose';
 import { User, IUser } from '../../src/models/User';
-import { connectDatabase, disconnectDatabase } from '../../src/config/database';
 
 describe('User Model', () => {
   beforeAll(async () => {
-    const mongoUri = process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/smartcut-test';
-    process.env.MONGO_URI = mongoUri;
-    await connectDatabase();
-    
     // Ensure indexes are created for tests
     await User.createIndexes();
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.dropDatabase();
-    await disconnectDatabase();
   });
 
   afterEach(async () => {

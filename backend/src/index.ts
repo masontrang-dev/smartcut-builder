@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import { connectDatabase } from './config/database';
 import { errorHandler } from './middleware/errorHandler';
 import { rateLimiter } from './middleware/rateLimiter';
+import authRoutes from './routes/authRoutes';
 
 dotenv.config();
 
@@ -32,14 +33,14 @@ app.get('/health', (req, res) => {
   });
 });
 
-// API routes will be added here
-// app.use('/api/auth', authRoutes);
+// API routes
+app.use('/api/auth', authRoutes);
 // app.use('/api/projects', projectRoutes);
 
 // Error handling
 app.use(errorHandler);
 
-// Start server
+// Start server only if not in test environment
 const startServer = async () => {
   try {
     await connectDatabase();
@@ -54,6 +55,9 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Only start server if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+  startServer();
+}
 
 export default app;

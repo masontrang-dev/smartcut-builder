@@ -5,6 +5,8 @@ const config: Config.InitialOptions = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src', '<rootDir>/tests'],
   testMatch: ['**/__tests__/**/*.ts', '**/?(*.)+(spec|test).ts'],
+  setupFilesAfterEnv: ['<rootDir>/tests/setup.ts'],
+  maxWorkers: 1, // Run tests serially to avoid database conflicts
   collectCoverageFrom: [
     'src/**/*.ts',
     '!src/**/*.d.ts',

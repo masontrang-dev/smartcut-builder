@@ -66,11 +66,11 @@
 
 #### Day 3-4: Database Models
 
-- [ ] Create User model with workshop profile
-- [ ] Create Project model (basic fields from schema)
-- [ ] Create Template model skeleton
-- [ ] Add indexes for performance
-- [ ] Write model validation tests
+- [x] Create User model with workshop profile
+- [x] Create Project model (basic fields from schema)
+- [x] Create Template model skeleton
+- [x] Add indexes for performance
+- [x] Write model validation tests
 
 #### Day 4-5: Authentication System
 

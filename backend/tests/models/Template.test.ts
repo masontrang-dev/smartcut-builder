@@ -1,19 +1,17 @@
 import mongoose from 'mongoose';
 import { Template, ITemplate } from '../../src/models/Template';
 import { User } from '../../src/models/User';
-import { connectDatabase, disconnectDatabase } from '../../src/config/database';
 
 describe('Template Model', () => {
   let testUserId: mongoose.Types.ObjectId;
 
   beforeAll(async () => {
-    const mongoUri = process.env.MONGO_URI_TEST || 'mongodb://localhost:27017/smartcut-test';
-    process.env.MONGO_URI = mongoUri;
-    await connectDatabase();
-
     // Ensure indexes are created for tests
     await User.createIndexes();
     await Template.createIndexes();
+    
+    // Wait for indexes to be built (important for parallel test execution)
+    await new Promise(resolve => setTimeout(resolve, 1000));
 
     // Create a test user
     const testUser = await User.create({
@@ -25,8 +23,8 @@ describe('Template Model', () => {
   });
 
   afterAll(async () => {
-    await mongoose.connection.dropDatabase();
-    await disconnectDatabase();
+    // Clean up test user
+    await User.deleteMany({ email: 'templatetest@example.com' });
   });
 
   afterEach(async () => {

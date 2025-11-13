@@ -2,8 +2,8 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "types": ["node", "jest"],
-    "rootDir": "."
+    "rootDir": ".."
   },
-  "include": ["./**/*"],
+  "include": ["./**/*", "../src/**/*"],
   "exclude": ["node_modules"]
 }
